@@ -1,0 +1,279 @@
+.page-shell {
+  min-height: 100vh;
+  padding: 24px;
+  color: #0f172a;
+  background:
+    radial-gradient(circle at 10% 5%, #fde68a 0%, transparent 28%),
+    radial-gradient(circle at 90% 0%, #bfdbfe 0%, transparent 30%),
+    linear-gradient(160deg, #f8fafc 0%, #e2e8f0 100%);
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.topbar {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+h1 {
+  margin: 0;
+  font-size: 2rem;
+  line-height: 1.15;
+}
+
+.eyebrow {
+  margin: 0 0 6px;
+  color: #0f766e;
+  font-size: 0.78rem;
+  letter-spacing: 0.08em;
+  font-weight: 700;
+}
+
+.user-panel {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.user-name {
+  margin: 0;
+  font-weight: 700;
+}
+
+.user-email {
+  margin: 2px 0 0;
+  font-size: 0.82rem;
+  color: #475569;
+}
+
+.app-grid {
+  display: grid;
+  grid-template-columns: 1.1fr 1fr 0.7fr;
+  gap: 16px;
+}
+
+.card {
+  background: #ffffffdd;
+  backdrop-filter: blur(6px);
+  border: 1px solid #cbd5e1;
+  border-radius: 18px;
+  padding: 16px;
+  box-shadow: 0 14px 24px rgba(15, 23, 42, 0.08);
+}
+
+.section-title {
+  margin: 0;
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
+.section-subtitle {
+  margin: 8px 0 14px;
+  color: #475569;
+  font-size: 0.9rem;
+}
+
+.form-grid {
+  display: grid;
+  gap: 12px;
+}
+
+label {
+  display: grid;
+  gap: 6px;
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+input,
+select,
+textarea {
+  width: 100%;
+  border: 1px solid #cbd5e1;
+  border-radius: 10px;
+  padding: 10px 12px;
+  font: inherit;
+  background: #f8fafc;
+}
+
+textarea {
+  resize: vertical;
+}
+
+.code-box {
+  font-family: "Consolas", "Courier New", monospace;
+}
+
+.primary-btn,
+.ghost-btn {
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: 700;
+  padding: 10px 14px;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.primary-btn {
+  color: #fff;
+  background: linear-gradient(130deg, #0f766e, #2563eb);
+}
+
+.primary-btn:hover,
+.ghost-btn:hover {
+  transform: translateY(-1px);
+}
+
+.primary-btn:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+}
+
+.ghost-btn {
+  color: #0f172a;
+  background: #e2e8f0;
+}
+
+.chat-feed {
+  margin-top: 8px;
+  max-height: 72vh;
+  overflow: auto;
+  display: grid;
+  gap: 10px;
+}
+
+.chat-item {
+  border: 1px solid #dbeafe;
+  border-radius: 14px;
+  padding: 10px;
+  background: #eff6ff;
+}
+
+.chat-item.user {
+  border-color: #cbd5e1;
+  background: #f8fafc;
+}
+
+.meta-row {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  font-size: 0.75rem;
+  color: #475569;
+  margin-bottom: 8px;
+}
+
+.pill {
+  text-transform: uppercase;
+  font-weight: 700;
+  background: #0f172a;
+  color: #fff;
+  border-radius: 999px;
+  padding: 1px 8px;
+}
+
+.chat-item pre {
+  margin: 0;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  white-space: pre-wrap;
+  line-height: 1.4;
+}
+
+.history-list {
+  display: grid;
+  gap: 8px;
+}
+
+.history-item {
+  border: 1px solid #cbd5e1;
+  border-radius: 10px;
+  background: #f8fafc;
+  padding: 8px;
+}
+
+.history-item p {
+  margin: 0;
+  font-weight: 600;
+}
+
+.history-item small {
+  color: #475569;
+}
+
+.error-text {
+  color: #b91c1c;
+  font-size: 0.88rem;
+  margin: 2px 0 0;
+}
+
+.auth-layout {
+  max-width: 1050px;
+  margin: 30px auto;
+  display: grid;
+  grid-template-columns: 1fr 420px;
+  gap: 16px;
+}
+
+.brand-card,
+.auth-card {
+  border-radius: 20px;
+  border: 1px solid #cbd5e1;
+  background: #ffffffee;
+  box-shadow: 0 18px 32px rgba(15, 23, 42, 0.1);
+}
+
+.brand-card {
+  padding: 26px;
+}
+
+.brand-card p {
+  color: #334155;
+}
+
+.brand-card ul {
+  margin: 14px 0 0;
+  padding-left: 18px;
+  color: #0f172a;
+}
+
+.auth-card {
+  padding: 14px;
+}
+
+.auth-tabs {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.auth-tabs button {
+  border: none;
+  border-radius: 10px;
+  padding: 10px;
+  font-weight: 700;
+  cursor: pointer;
+  background: #e2e8f0;
+}
+
+.auth-tabs button.active {
+  color: #fff;
+  background: #0f172a;
+}
+
+.auth-form {
+  display: grid;
+  gap: 12px;
+}
+
+@media (max-width: 1080px) {
+  .app-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .auth-layout {
+    grid-template-columns: 1fr;
+  }
+}
