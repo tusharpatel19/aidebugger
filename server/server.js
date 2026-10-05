@@ -10,9 +10,11 @@ const debugSessionRoutes = require("./routes/debugSessionRoutes.js");
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-const allowedOrigins = process.env.CORS_ORIGIN
-  ? process.env.CORS_ORIGIN.split(",").map((origin) => origin.trim()).filter(Boolean)
-  : true;
+const configuredOrigins = process.env.CORS_ORIGIN
+  ?.split(",")
+  .map((origin) => origin.trim())
+  .filter(Boolean);
+const allowedOrigins = configuredOrigins?.includes("*") ? true : configuredOrigins || true;
 
 app.use(cors({ origin: allowedOrigins }));
 app.use(express.json({ limit: "1mb" }));

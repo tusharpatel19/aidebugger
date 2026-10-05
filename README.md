@@ -48,11 +48,16 @@ Set `LLM_BASE_URL` and `LLM_MODEL` in `server/.env` to select an OpenAI-compatib
 
 ## Deploy Simply
 
-Use MongoDB Atlas for the database, Render Web Service for `server/`, and Render Static Site for `client/`. No Docker, Python service, compiler, or execution host is required.
+Use MongoDB Atlas for the database and Render for the backend/frontend. The repository includes a Render Blueprint (`render.yaml`) for both services, and it does not install or require Docker, a Python service, compilers, or a code-execution host.
 
-- **Backend Web Service:** root directory `server`; build command `npm install`; start command `npm start`. Add `MONGODB_URI`, a randomly generated `JWT_SECRET`, `LLM_API_KEY`, `LLM_BASE_URL`, `LLM_MODEL`, and `CORS_ORIGIN` in the hosting dashboard. Set `CORS_ORIGIN` to the deployed frontend's exact URL.
-- **Frontend Static Site:** root directory `client`; build command `npm install && npm run build`; publish directory `dist`. Set `VITE_API_URL` to the backend URL followed by `/api`, for example `https://your-api.example.com/api`.
-- Add the deployed backend's outbound address/IP requirements to the MongoDB Atlas network-access allowlist.
+1. Create a MongoDB Atlas cluster/database and a database user. In Atlas Network Access, allow your development IP during setup; for Render, use its documented outbound IP ranges or temporarily allow `0.0.0.0/0` with a strong database password, then restrict access when possible.
+2. Open Render's **New → Blueprint** and select the GitHub repository `tusharpatel19/aidebugger` and branch `codex/update-aidebugger`.
+3. During setup, enter the MongoDB Atlas URI for `MONGODB_URI` and your AI provider key for `LLM_API_KEY`. Render generates the `JWT_SECRET`; model and provider URL have defaults in `render.yaml`.
+4. Create both services. The static site gets the backend hostname automatically; its API client adds HTTPS and `/api`.
+5. After Render assigns the frontend URL, update `CORS_ORIGIN` on `aidebugger-api` to that exact URL (for example `https://aidebugger-web.onrender.com`) and redeploy the backend. The initial wildcard only permits the first deploy to complete before the static-site URL is known.
+6. Wait for both deployments to report **Live**. Test the API service root URL (it should return a JSON running message), then open the static-site URL, register, sign in, and submit a small code sample. The free backend plan may sleep when idle and take longer on its first request.
+
+If configuring services manually instead of using the Blueprint: backend root `server`, build `npm ci`, start `npm start`; frontend root `client`, build `npm ci && npm run build`, publish directory `dist`. Set frontend `VITE_API_URL` to the backend URL ending in `/api`.
 
 Environment variables:
 
