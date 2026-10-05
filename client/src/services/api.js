@@ -1,53 +1,45 @@
-const API_BASE = "http://localhost:5000/api";
+import axios from "axios";
+
+const api = axios.create({
+  baseURL: import.meta.env.VITE_API_URL || "http://localhost:5000/api",
+});
+
+function authHeaders(token) {
+  return { Authorization: `Bearer ${token}` };
+}
 
 export async function authRequest(path, payload) {
-  const response = await fetch(`${API_BASE}${path}`, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(payload),
-  });
-
-  const data = await response.json();
-  if (!response.ok) {
-    throw new Error(data.error || "Server error.");
+  try {
+    const response = await api.post(path, payload);
+    return response.data;
+  } catch (err) {
+    throw new Error(err.response?.data?.error || "Server error.");
   }
-  return data;
 }
 
 export async function fetchCurrentUser(token) {
-  const response = await fetch(`${API_BASE}/auth/me`, {
-    headers: { Authorization: `Bearer ${token}` },
-  });
-  const data = await response.json();
-  if (!response.ok) {
-    throw new Error(data.error || "Failed to fetch user.");
+  try {
+    const response = await api.get("/auth/me", { headers: authHeaders(token) });
+    return response.data;
+  } catch (err) {
+    throw new Error(err.response?.data?.error || "Failed to fetch user.");
   }
-  return data;
 }
 
 export async function fetchHistory(token) {
-  const response = await fetch(`${API_BASE}/messages`, {
-    headers: { Authorization: `Bearer ${token}` },
-  });
-  const data = await response.json();
-  if (!response.ok) {
-    throw new Error(data.error || "Failed to load history.");
+  try {
+    const response = await api.get("/debug/history", { headers: authHeaders(token) });
+    return response.data;
+  } catch (err) {
+    throw new Error(err.response?.data?.error || "Failed to load history.");
   }
-  return data;
 }
 
 export async function sendDebugRequest(token, payload) {
-  const response = await fetch(`${API_BASE}/debugger/chat`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${token}`,
-    },
-    body: JSON.stringify(payload),
-  });
-  const data = await response.json();
-  if (!response.ok) {
-    throw new Error(data.details || data.error || "Debug request failed.");
+  try {
+    const response = await api.post("/debug", payload, { headers: authHeaders(token) });
+    return response.data;
+  } catch (err) {
+    throw new Error(err.response?.data?.details || err.response?.data?.error || "Debug request failed.");
   }
-  return data;
 }

@@ -15,7 +15,7 @@ function Register({ onSuccess }) {
     setError("");
     setLoading(true);
     try {
-      const data = await authRequest("/auth/signup", { name, email, password });
+      const data = await authRequest("/auth/register", { name, email, password });
       onSuccess(data);
       navigate("/dashboard");
     } catch (err) {

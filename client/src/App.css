@@ -1,3 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 :root {
   color-scheme: dark;
   font-family: Inter, system-ui, sans-serif;
@@ -153,8 +157,153 @@ button:disabled {
 
 .dashboard-page {
   display: grid;
-  grid-template-columns: 1.2fr 0.8fr;
+  grid-template-columns: minmax(0, 1.1fr) minmax(360px, 0.9fr);
   gap: 1.5rem;
+  align-items: start;
+}
+
+.side-stack {
+  display: grid;
+  gap: 1rem;
+}
+
+.code-editor-frame {
+  overflow: hidden;
+  border: 1px solid rgba(148, 163, 184, 0.2);
+  border-radius: 0.75rem;
+  background: #020617;
+}
+
+.activity-panel,
+.result-panel {
+  min-height: 240px;
+}
+
+.activity-list {
+  display: grid;
+  gap: 0.85rem;
+}
+
+.activity-item {
+  display: grid;
+  grid-template-columns: 24px minmax(0, 1fr);
+  gap: 0.75rem;
+  align-items: start;
+  padding: 0.85rem;
+  border: 1px solid rgba(148, 163, 184, 0.12);
+  border-radius: 0.75rem;
+  background: rgba(2, 6, 23, 0.7);
+}
+
+.activity-item strong {
+  text-transform: capitalize;
+}
+
+.activity-item p,
+.empty-state {
+  margin: 0.25rem 0 0;
+  color: #94a3b8;
+}
+
+.activity-icon {
+  display: grid;
+  place-items: center;
+  color: #38bdf8;
+}
+
+.activity-item.failed .activity-icon {
+  color: #fb7185;
+}
+
+.activity-item.completed .activity-icon {
+  color: #22c55e;
+}
+
+.spin-icon {
+  animation: spin 1s linear infinite;
+}
+
+.result-header {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  align-items: center;
+}
+
+.result-badges {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.language-pill {
+  padding: 0.35rem 0.65rem;
+  border: 1px solid rgba(56, 189, 248, 0.35);
+  border-radius: 999px;
+  color: #7dd3fc;
+  font-size: 0.8rem;
+  text-transform: capitalize;
+}
+
+.status-pill {
+  padding: 0.35rem 0.65rem;
+  border-radius: 999px;
+  background: rgba(148, 163, 184, 0.16);
+  color: #cbd5e1;
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.status-pill.passed {
+  background: rgba(34, 197, 94, 0.15);
+  color: #86efac;
+}
+
+.status-pill.failed,
+.status-pill.max_iterations,
+.status-pill.agent_error {
+  background: rgba(251, 113, 133, 0.14);
+  color: #fda4af;
+}
+
+.result-grid,
+.code-compare {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.result-grid {
+  margin: 1rem 0;
+}
+
+.result-panel h3 {
+  margin: 0 0 0.6rem;
+  font-size: 1rem;
+}
+
+.result-panel p {
+  color: #cbd5e1;
+}
+
+.code-compare pre {
+  min-height: 180px;
+  max-height: 360px;
+  overflow: auto;
+  margin: 0;
+  padding: 1rem;
+  border: 1px solid rgba(148, 163, 184, 0.16);
+  border-radius: 0.75rem;
+  background: #020617;
+  color: #dbeafe;
+  white-space: pre-wrap;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 .history-page .history-list {
@@ -180,6 +329,17 @@ button:disabled {
   margin: 0.75rem 0 0;
   white-space: pre-wrap;
   word-break: break-word;
+}
+
+.history-text pre {
+  max-height: 180px;
+  overflow: auto;
+  margin: 0.75rem 0 0;
+  padding: 0.85rem;
+  border-radius: 0.75rem;
+  background: #020617;
+  color: #dbeafe;
+  white-space: pre-wrap;
 }
 
 .two-column {
@@ -211,6 +371,11 @@ button:disabled {
 
 @media (max-width: 900px) {
   .dashboard-page {
+    grid-template-columns: 1fr;
+  }
+
+  .result-grid,
+  .code-compare {
     grid-template-columns: 1fr;
   }
 }
