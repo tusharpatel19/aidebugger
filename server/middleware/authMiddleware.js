@@ -1,42 +1,20 @@
-const crypto = require("crypto");
+const jwt = require("jsonwebtoken");
 
-const AUTH_SECRET = process.env.AUTH_SECRET || "change-this-in-production";
-
-function base64UrlEncode(input) {
-  return Buffer.from(input).toString("base64url");
-}
-
-function base64UrlDecode(input) {
-  return Buffer.from(input, "base64url").toString("utf8");
+function getJwtSecret() {
+  if (!process.env.JWT_SECRET) {
+    throw new Error("JWT_SECRET is required. Configure it in server/.env.");
+  }
+  return process.env.JWT_SECRET;
 }
 
 function createAuthToken(userId) {
-  const payload = base64UrlEncode(
-    JSON.stringify({ userId, exp: Date.now() + 7 * 24 * 60 * 60 * 1000 })
-  );
-
-  const signature = crypto
-    .createHmac("sha256", AUTH_SECRET)
-    .update(payload)
-    .digest("base64url");
-
-  return `${payload}.${signature}`;
+  return jwt.sign({ userId }, getJwtSecret(), { expiresIn: "7d" });
 }
 
 function parseAuthToken(token) {
-  const [payload, signature] = token.split(".");
-  if (!payload || !signature) return null;
-
-  const expectedSignature = crypto
-    .createHmac("sha256", AUTH_SECRET)
-    .update(payload)
-    .digest("base64url");
-
-  if (signature !== expectedSignature) return null;
-
   try {
-    const decoded = JSON.parse(base64UrlDecode(payload));
-    if (!decoded.userId || !decoded.exp || decoded.exp < Date.now()) return null;
+    const decoded = jwt.verify(token, getJwtSecret());
+    if (!decoded.userId) return null;
     return decoded.userId;
   } catch (err) {
     return null;
