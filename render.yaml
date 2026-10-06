@@ -29,10 +29,7 @@ services:
     staticPublishPath: dist
     envVars:
       - key: VITE_API_URL
-        fromService:
-          type: web
-          name: aidebugger-api
-          property: host
+        value: https://aidebugger-api.onrender.com/api
     routes:
       - type: rewrite
         source: /*
